@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesaplar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="sayıSistemiMenü" onclick="sayıSistemiMenü()">Sayı Sistemi Çevirme ></button>
+    <button id="hesapMakinesiMenü" onclick="hesapMakinesiMenü()">Hesap Makinesi ></button>
+    <button id="sistemKapatma" onclick="sistemKapatma()">Sistemi Kapat</button>
+    <table id="hesapMakinesi">
+    <tr>
+        <td colspan="4"><textarea id="ekran" cols="10" rows="1" disabled></textarea></td>
+    </tr>
+    <tr>
+        <td><button id="yedi" onclick="ekranaYaz('7')">7</button></td>
+        <td><button id="sekiz" onclick="ekranaYaz('8')">8</button></td>
+        <td><button id="dokuz" onclick="ekranaYaz('9')">9</button></td>
+        <td><button id="bölme" onclick="ekranaYaz('/')">÷</button></td>
+    </tr>
+    <tr>
+        <td><button id="dört" onclick="ekranaYaz('4')">4</button></td>
+        <td><button id="beş" onclick="ekranaYaz('5')">5</button></td>
+        <td><button id="altı" onclick="ekranaYaz('6')">6</button></td>
+        <td><button id="çarpma" onclick="ekranaYaz('*')">×</button></td>
+    </tr>
+    <tr>
+        <td><button id="bir" onclick="ekranaYaz('1')">1</button></td>
+        <td><button id="iki" onclick="ekranaYaz('2')">2</button></td>
+        <td><button id="üç" onclick="ekranaYaz('3')">3</button></td>
+        <td><button id="toplama" onclick="ekranaYaz('+')">+</button></td>
+    </tr>
+    <tr>
+        <td><button id="nokta" onclick="ekranaYaz('.')">.</button></td>
+        <td><button id="sıfır" onclick="ekranaYaz('0')">0</button></td>
+        <td><button id="silme" onclick="silme()">←</button></td>
+        <td><button id="çıkarma" onclick="ekranaYaz('-')">-</button></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><button id="parantezAçma" onclick="parantezAçma()">(</button></td>
+        <td><button id="parantezKapatma" onclick="parantezKapatma()">)</button></td>
+        <td><button id="eşittir" onclick="eşittir()">=</button></td>
+    </tr>
+    </table>
+    <table id="sayıSistemleri">
+<tr>
+    <td colspan="3"><input type="text" id="ifade" placeholder="İfadeyi giriniz.."></td>
+    <tr>
+    <td><button id="ikilik" onclick="ikilikSistem()">İkilik</button></td>
+    <td><button id="sekizlik" onclick="sekizlikSistem()">Sekizlik</button></td>
+    <td><button id="onaltılık" onclick="onaltılıkSistem()">On Altılık</button></td>
+</tr>
+    <td colspan="3"><input type="text" id="sonuç" disabled></td>
+</tr>
+    </table>
+    <script>
+        document.getElementById("sayıSistemleri").style.display="none";
+        document.getElementById("hesapMakinesi").style.display="none";
+        // SAYI SİSTEMLERİ KODLARI //
+        function ikilikSistem(){
+            var ifade = parseInt(document.getElementById("ifade").value);
+            var ikilik = ifade.toString(2);
+            document.getElementById("sonuç").value = ikilik;
+            document.getElementById("ifade").value="";
+        }
+        function sekizlikSistem(){
+            var ifade = parseInt(document.getElementById("ifade").value);
+            var sekizlik = ifade.toString(8);
+            document.getElementById("sonuç").value = sekizlik;
+            document.getElementById("ifade").value="";
+        }
+        function onaltılıkSistem(){
+            var ifade = parseInt(document.getElementById("ifade").value);
+            var sekizlik = ifade.toString(16);
+            document.getElementById("sonuç").value = sekizlik;
+            document.getElementById("ifade").value="";
+        }
+        // HESAP MAKİNESİ KODLARI //
+        var ekran=document.getElementById("ekran");
+        function ekranaYaz(str){
+            ekran.value+=str;
+        }
+        function silme(){
+            var str=document.getElementById("ekran").value;
+            document.getElementById("ekran").value=str.substring(0,str.length-1)
+        }
+        function eşittir(){
+            ekran=document.getElementById("ekran");
+            ekran.value=Number(eval(ekran.value)).toFixed(2);
+        }
+        var aktiflikSS=false;
+        var aktiflikHM=false;
+        function sayıSistemiMenü(){
+                var ss=document.getElementById("sayıSistemleri");
+                if(aktiflikSS==false){
+                    ss.style.display="list-item";
+                    aktiflikSS=true;
+                    document.getElementById("sayıSistemiMenü").innerHTML="Sayı Sistemi Çevirme v";
+                }
+                else{
+                ss.style.display="none";
+                aktiflikSS=false;
+                document.getElementById("sayıSistemiMenü").innerHTML="Sayı Sistemi Çevirme >";
+                }
+        }
+        function hesapMakinesiMenü(){
+            var ss=document.getElementById("hesapMakinesi");
+            if(aktiflikHM==false){
+                ss.style.display="list-item";
+                aktiflikHM=true;
+                document.getElementById("hesapMakinesiMenü").innerHTML="Hesap Makinesi v";
+            }
+            else{
+                ss.style.display="none";
+                aktiflikHM=false;
+                document.getElementById("hesapMakinesiMenü").innerHTML="Hesap Makinesi >";
+            }
+        }
+        function sistemKapatma(){
+            alert("Sistem kapatılıyor..");
+            close();
+        }
+    </script>
+</body>
+</html>
